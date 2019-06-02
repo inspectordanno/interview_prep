@@ -117,13 +117,85 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"components/fundamentalsCheck.js":[function(require,module,exports) {
+})({"components/powerSet.js":[function(require,module,exports) {
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function powerSet(inputStr) {
+  //collect of strings
+  var stringCollection = []; //0n solution
+  //beginning index is 0
+
+  var startIndex = 0; //beginning length is 1
+
+  var length = 1; //while the start index is less than the total length
+
+  while (startIndex < inputStr.length) {
+    //push a substring from start index with length length
+    var substring = inputStr.substr(startIndex, length);
+    stringCollection.push(substring); //increase length by 1
+
+    length += 1; // if the length is greater than the remaining length of the string
+
+    if (length > inputStr.length - startIndex) {
+      //increase the start index
+      startIndex += 1; //reset length to 1
+
+      length = 1;
+    }
+  } // 0n^2 solution
+  //collects all strings from startIndex to looping end point
+  // const getSubstring = (startIndex) => {
+  //   for (let i = 1; i <= inputStr.length; i++) {
+  //     const subString = inputStr.substr(startIndex, i);
+  //     stringCollection.push(subString);
+  //   }
+  // }
+  // //loops the start index
+  // for (let i = 0; i <= inputStr.length; i++) {
+  //   getSubstring(i);
+  // }
+  //removes spaces and empty strings
+
+
+  var removeEmptyStr = stringCollection.filter(function (str) {
+    return str !== ' ' && str !== '';
+  }); //uses set to remove duplicate strings
+
+  var unique = _toConsumableArray(new Set(removeEmptyStr)); //sort unique strings by alphabetical order
+
+
+  function sortStrings(a, b) {
+    var aLower = a.toLowerCase();
+    var bLower = b.toLowerCase();
+
+    if (aLower < bLower) {
+      return -1;
+    } else if (aLower > bLower) {
+      return 1;
+    } else if (aLower === bLower) {
+      return 0;
+    }
+  }
+
+  unique.sort(function (a, b) {
+    return sortStrings(a, b);
+  });
+  return unique;
+}
+
+;
+console.log(powerSet('UnitedStatesofAmerica'));
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
-require("./components/fundamentalsCheck");
-},{"./components/fundamentalsCheck":"components/fundamentalsCheck.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+require("./components/powerSet");
+},{"./components/powerSet":"components/powerSet.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
