@@ -117,44 +117,56 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"components/multiplePointers.js":[function(require,module,exports) {
-//finds the first pair of numbers that sum to zero. only works on an ordered array
-var fixture = [-4, -3, -2, -1, 0, 1, 2, 5];
+})({"components/countUniqueValues.js":[function(require,module,exports) {
+"use strict";
 
-function sumZeroNaive(arr) {
-  for (var i = 0; i < arr.length; i++) {
-    for (var j = i + 1; j < arr.length; j++) {
-      if (arr[i] + arr[j] === 0) {
-        return [arr[i], arr[j]];
-      }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var fixture = [1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13];
+
+function countUniqueValues(array) {
+  //records unique value position
+  var i = 0; //"scout" variable
+
+  var j = 1; //if array has no numbers, return 0
+
+  if (array.length === 0) {
+    return 0;
+  } //repeat until end of the array
+
+
+  while (j < array.length) {
+    var firstPointerValue = array[i];
+    var secondPointerValue = array[j]; //if i value doesn't equal j value, move j value right
+
+    if (firstPointerValue === secondPointerValue) {
+      j++;
+    } //if i doesn't equal j, put value in front of i index, then move i right
+
+
+    if (firstPointerValue !== secondPointerValue) {
+      i++; //move i right
+
+      array[i] = secondPointerValue; //change first pointer to second pointer
+
+      j++; //move j right
     }
-  }
+  } //unique values is i + 1
+
+
+  return i + 1;
 }
 
-var sumZero = function sumZero(arr) {
-  var left = 0;
-  var right = arr.length - 1;
-
-  while (left < right) {
-    var sum = arr[left] + arr[right];
-
-    if (sum === 0) {
-      return [arr[left], arr[right]];
-    } else if (sum > 0) {
-      right--;
-    } else {
-      left++;
-    }
-  }
-};
-
-sumZeroNaive(fixture);
-sumZero(fixture);
+console.log(countUniqueValues(fixture));
+var _default = countUniqueValues;
+exports.default = _default;
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
-require("./components/multiplePointers");
-},{"./components/multiplePointers":"components/multiplePointers.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+require("./components/countUniqueValues");
+},{"./components/countUniqueValues":"components/countUniqueValues.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -182,7 +194,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59101" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60186" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -357,5 +369,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
 //# sourceMappingURL=/main.1f19ae8e.js.map

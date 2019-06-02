@@ -1,0 +1,35 @@
+{
+  "name": "interview_prep",
+  "version": "1.0.0",
+  "description": "coding interview prep",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "parcel-bundler": "^1.12.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inspectordanno/interview_prep.git"
+  },
+  "keywords": [
+    "interview",
+    "prep"
+  ],
+  "author": "Dan Spector",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inspectordanno/interview_prep/issues"
+  },
+  "homepage": "https://github.com/inspectordanno/interview_prep#readme"
+}

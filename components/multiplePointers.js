@@ -30,4 +30,4 @@ const sumZero = (arr) => {
 }
 
 sumZeroNaive(fixture);
-sumZero(fixture);
+console.log(sumZero(fixture));
