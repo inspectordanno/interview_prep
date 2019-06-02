@@ -117,56 +117,13 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"components/countUniqueValues.js":[function(require,module,exports) {
-"use strict";
+})({"components/fundamentalsCheck.js":[function(require,module,exports) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var fixture = [1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13];
-
-function countUniqueValues(array) {
-  //records unique value position
-  var i = 0; //"scout" variable
-
-  var j = 1; //if array has no numbers, return 0
-
-  if (array.length === 0) {
-    return 0;
-  } //repeat until end of the array
-
-
-  while (j < array.length) {
-    var firstPointerValue = array[i];
-    var secondPointerValue = array[j]; //if i value doesn't equal j value, move j value right
-
-    if (firstPointerValue === secondPointerValue) {
-      j++;
-    } //if i doesn't equal j, put value in front of i index, then move i right
-
-
-    if (firstPointerValue !== secondPointerValue) {
-      i++; //move i right
-
-      array[i] = secondPointerValue; //change first pointer to second pointer
-
-      j++; //move j right
-    }
-  } //unique values is i + 1
-
-
-  return i + 1;
-}
-
-console.log(countUniqueValues(fixture));
-var _default = countUniqueValues;
-exports.default = _default;
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
-require("./components/countUniqueValues");
-},{"./components/countUniqueValues":"components/countUniqueValues.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+require("./components/fundamentalsCheck");
+},{"./components/fundamentalsCheck":"components/fundamentalsCheck.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -194,7 +151,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60186" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52003" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -369,5 +326,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
+},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
 //# sourceMappingURL=/main.1f19ae8e.js.map
