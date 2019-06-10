@@ -117,85 +117,134 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"components/powerSet.js":[function(require,module,exports) {
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+})({"data_structures/hash_table/HashTable.js":[function(require,module,exports) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+var HashTable =
+/*#__PURE__*/
+function () {
+  function HashTable() {
+    var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 53;
 
-function powerSet(inputStr) {
-  //collect of strings
-  var stringCollection = []; //0n solution
-  //beginning index is 0
+    _classCallCheck(this, HashTable);
 
-  var startIndex = 0; //beginning length is 1
-
-  var length = 1; //while the start index is less than the total length
-
-  while (startIndex < inputStr.length) {
-    //push a substring from start index with length length
-    var substring = inputStr.substr(startIndex, length);
-    stringCollection.push(substring); //increase length by 1
-
-    length += 1; // if the length is greater than the remaining length of the string
-
-    if (length > inputStr.length - startIndex) {
-      //increase the start index
-      startIndex += 1; //reset length to 1
-
-      length = 1;
-    }
-  } // 0n^2 solution
-  //collects all strings from startIndex to looping end point
-  // const getSubstring = (startIndex) => {
-  //   for (let i = 1; i <= inputStr.length; i++) {
-  //     const subString = inputStr.substr(startIndex, i);
-  //     stringCollection.push(subString);
-  //   }
-  // }
-  // //loops the start index
-  // for (let i = 0; i <= inputStr.length; i++) {
-  //   getSubstring(i);
-  // }
-  //removes spaces and empty strings
-
-
-  var removeEmptyStr = stringCollection.filter(function (str) {
-    return str !== ' ' && str !== '';
-  }); //uses set to remove duplicate strings
-
-  var unique = _toConsumableArray(new Set(removeEmptyStr)); //sort unique strings by alphabetical order
-
-
-  function sortStrings(a, b) {
-    var aLower = a.toLowerCase();
-    var bLower = b.toLowerCase();
-
-    if (aLower < bLower) {
-      return -1;
-    } else if (aLower > bLower) {
-      return 1;
-    } else if (aLower === bLower) {
-      return 0;
-    }
+    this.keyMap = new Array(size);
   }
 
-  unique.sort(function (a, b) {
-    return sortStrings(a, b);
-  });
-  return unique;
-}
+  _createClass(HashTable, [{
+    key: "_hash",
+    value: function _hash(key) {
+      var total = 0;
+      var WEIRD_PRIME = 31;
 
-;
-console.log(powerSet('UnitedStatesofAmerica'));
+      for (var i = 0; i < Math.min(key.length, 100); i++) {
+        var char = key[i];
+        var value = char.charCodeAt(0) - 96;
+        total = (total * WEIRD_PRIME + value) % this.keyMap.length;
+      }
+
+      return total;
+    }
+  }, {
+    key: "_set",
+    value: function _set(key, value) {
+      var index = this._hash(key); //get a hash from the key
+
+
+      if (!this.keyMap[index]) {
+        //if there is no key value pair at hash location, instantiate new array at that location
+        this.keyMap[index] = [];
+      }
+
+      this.keyMap[index].push([key, value]); //push data to hash location
+    }
+  }, {
+    key: "_get",
+    value: function _get(key) {
+      var index = this._hash(key); //get a hash from the key
+      // if (this.keyMap[index]) {
+      //   this.keyMap[index].forEach(keyValuePair => { //search for each keyValuePair, if key in keyValuePair matches input key, return value;
+      //     if (keyValuePair[0] === key) {
+      //       return keyValuePair[1];
+      //     }
+      //   });
+
+
+      for (var i = 0; i < this.keyMap[index].length; i++) {
+        if (this.keyMap[index][i][0] === key) {
+          return this.keyMap[index][i][1];
+        }
+      }
+
+      return undefined; //if key is in not in the keyValuePairs, return undefined
+    }
+  }, {
+    key: "_keys",
+    value: function _keys() {
+      var keys = [];
+      var tableIndex = 0;
+      var bucketIndex = 0;
+      var currentBucket = this.keyMap[tableIndex];
+
+      while (tableIndex < this.keyMap.length) {
+        if (currentBucket) {
+          var key = currentBucket[bucketIndex][0];
+          keys.push(key);
+
+          if (bucketIndex < currentBucket.length) {
+            bucketIndex += 1;
+          }
+        } else {
+          bucketIndex = 0;
+          tableIndex += 1;
+        }
+      }
+
+      return keys;
+    }
+  }, {
+    key: "_values",
+    value: function _values() {
+      var values = [];
+      var tableIndex = 0;
+      var bucketIndex = 0;
+      var currentBucket = this.keyMap[tableIndex];
+
+      while (tableIndex < this.keyMap.length) {
+        if (currentBucket) {
+          var value = currentBucket[bucketIndex][0];
+          values.push(value);
+
+          if (bucketIndex < currentBucket.length) {
+            bucketIndex += 1;
+          }
+        } else {
+          bucketIndex = 0;
+          tableIndex += 1;
+        }
+      }
+
+      return values;
+    }
+  }]);
+
+  return HashTable;
+}();
+
+var hashtable = new HashTable();
+
+hashtable._set('fart', 44);
+
+console.log(hashtable._keys());
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
-require("./components/powerSet");
-},{"./components/powerSet":"components/powerSet.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+require("./data_structures/hash_table/HashTable");
+},{"./data_structures/hash_table/HashTable":"data_structures/hash_table/HashTable.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -223,7 +272,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52003" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52213" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

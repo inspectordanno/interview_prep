@@ -1,0 +1,19 @@
+What makes a good hash?
+
+1. Fast (constant time)
+2. Doesn't cluster outputs at specific indices, but distributes uniformly
+3. Deterministic (same input yields same output)
+
+Hash function
+
+1. Converts keys into valid array indices
+2. Takes an input of variable size and converts it to hash of constant size
+
+Collisions
+
+1. Separate Chaining
+  a. With separate chaining, at each index in our array we store values using a more sophisticated data structure (i.e. array or linked list)
+
+2. Linear Probing
+  a. With linear probing, when we find a collision, we search through the array to find the next empty slot
+  b. Unlike with separate chaining, this allows us to store a single key-value at each index
