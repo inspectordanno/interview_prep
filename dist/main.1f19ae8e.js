@@ -117,134 +117,46 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"data_structures/hash_table/HashTable.js":[function(require,module,exports) {
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var HashTable =
-/*#__PURE__*/
-function () {
-  function HashTable() {
-    var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 53;
-
-    _classCallCheck(this, HashTable);
-
-    this.keyMap = new Array(size);
+})({"algorithms/areThereDuplicates.js":[function(require,module,exports) {
+function areThereDuplicates() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
   }
 
-  _createClass(HashTable, [{
-    key: "_hash",
-    value: function _hash(key) {
-      var total = 0;
-      var WEIRD_PRIME = 31;
+  //sort array
+  args.sort(function (a, b) {
+    return a < b ? -1 : 1;
+  }); //start
 
-      for (var i = 0; i < Math.min(key.length, 100); i++) {
-        var char = key[i];
-        var value = char.charCodeAt(0) - 96;
-        total = (total * WEIRD_PRIME + value) % this.keyMap.length;
-      }
+  var start = 0; //next
 
-      return total;
+  var next = 1; //while start is at least two from the end of the array
+
+  while (next < args.length) {
+    //if first pointer equals second (duplicate), return true
+    if (args[start] === args[next]) {
+      return true;
+    } //if they don't, move next forward
+
+
+    next++; //if next is at the end of the array, move the start forward and set next to one after start
+
+    if (next === args.length - 1) {
+      start++;
+      next = start + 1;
     }
-  }, {
-    key: "_set",
-    value: function _set(key, value) {
-      var index = this._hash(key); //get a hash from the key
+  } //if while loop doesn't return true, return false (no duplicate)
 
 
-      if (!this.keyMap[index]) {
-        //if there is no key value pair at hash location, instantiate new array at that location
-        this.keyMap[index] = [];
-      }
+  return false;
+}
 
-      this.keyMap[index].push([key, value]); //push data to hash location
-    }
-  }, {
-    key: "_get",
-    value: function _get(key) {
-      var index = this._hash(key); //get a hash from the key
-      // if (this.keyMap[index]) {
-      //   this.keyMap[index].forEach(keyValuePair => { //search for each keyValuePair, if key in keyValuePair matches input key, return value;
-      //     if (keyValuePair[0] === key) {
-      //       return keyValuePair[1];
-      //     }
-      //   });
-
-
-      for (var i = 0; i < this.keyMap[index].length; i++) {
-        if (this.keyMap[index][i][0] === key) {
-          return this.keyMap[index][i][1];
-        }
-      }
-
-      return undefined; //if key is in not in the keyValuePairs, return undefined
-    }
-  }, {
-    key: "_keys",
-    value: function _keys() {
-      var keys = [];
-      var tableIndex = 0;
-      var bucketIndex = 0;
-      var currentBucket = this.keyMap[tableIndex];
-
-      while (tableIndex < this.keyMap.length) {
-        if (currentBucket) {
-          var key = currentBucket[bucketIndex][0];
-          keys.push(key);
-
-          if (bucketIndex < currentBucket.length) {
-            bucketIndex += 1;
-          }
-        } else {
-          bucketIndex = 0;
-          tableIndex += 1;
-        }
-      }
-
-      return keys;
-    }
-  }, {
-    key: "_values",
-    value: function _values() {
-      var values = [];
-      var tableIndex = 0;
-      var bucketIndex = 0;
-      var currentBucket = this.keyMap[tableIndex];
-
-      while (tableIndex < this.keyMap.length) {
-        if (currentBucket) {
-          var value = currentBucket[bucketIndex][0];
-          values.push(value);
-
-          if (bucketIndex < currentBucket.length) {
-            bucketIndex += 1;
-          }
-        } else {
-          bucketIndex = 0;
-          tableIndex += 1;
-        }
-      }
-
-      return values;
-    }
-  }]);
-
-  return HashTable;
-}();
-
-var hashtable = new HashTable();
-
-hashtable._set('fart', 44);
-
-console.log(hashtable._keys());
+console.log(areThereDuplicates(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 10));
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
-require("./data_structures/hash_table/HashTable");
-},{"./data_structures/hash_table/HashTable":"data_structures/hash_table/HashTable.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+require("./algorithms/areThereDuplicates");
+},{"./algorithms/areThereDuplicates":"algorithms/areThereDuplicates.js"}],"../../../.nvm/versions/node/v12.4.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -272,7 +184,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52213" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53372" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -447,5 +359,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
+},{}]},{},["../../../.nvm/versions/node/v12.4.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
 //# sourceMappingURL=/main.1f19ae8e.js.map
